@@ -53,8 +53,18 @@ public class StudentController {
         return new ResponseEntity<String>("Student deleted Successfully.",HttpStatus.OK);
     }
     
+    @GetMapping("getStudentByYearsOfEnrollment/{yearsOfEnrollment}")
+    public List<Student> getStudentByYearsOfExperience(@PathVariable("yearsOfEnrollment") int yearsOfEnrollment){
+        return studentService.getStudentByYearsOfExperience(yearsOfEnrollment);
+    }
     @GetMapping("getDepartmentById/{id}")
-    public String findDepartmentById(@PathVariable("id") long id){
+    public String getDepartmentByStudentId(@PathVariable String id) {
         return studentService.findDepartmentById(id);
     }
+    
+    @DeleteMapping("deleteStudentByYearsOfEnrollment/{yearsOfEnrollment}")
+    public String deleteStudentByYearsOfEnrollment(@PathVariable("yearsOfEnrollment") int yearsOfEnrollment){
+        return studentService.deleteStudentByYearsOfEnrollment(yearsOfEnrollment);
+    }
+
 }

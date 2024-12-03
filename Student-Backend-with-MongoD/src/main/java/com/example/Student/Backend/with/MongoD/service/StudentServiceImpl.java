@@ -43,7 +43,7 @@ public class StudentServiceImpl implements StudentService {
         existingStudent.setLastName(student.getLastName());
         existingStudent.setEmail(student.getEmail());
         existingStudent.setDepartment(student.getDepartment());
-        existingStudent.setYearOfEnrollment(student.getYearOfEnrollment());
+        existingStudent.setYearsOfEnrollment(student.getYearsOfEnrollment());
 
         // Save and return the updated student
         return studentRepository.save(existingStudent);
@@ -56,16 +56,36 @@ public class StudentServiceImpl implements StudentService {
                 .orElseThrow(() -> new RuntimeException("Student not found with id: " + id));
         studentRepository.delete(student);
     }
-
     @Override
-    public List<Student> getStudentsByYearOfEnrollment(int yearOfEnrollment) {
-        return studentRepository.findByYearOfEnrollment(yearOfEnrollment);
+    public List<Student> getStudentByYearsOfExperience(int years){
+        return studentRepository.findByYearsOfEnrollment(years);
+    }
+   
+    @Override
+    public String deleteStudentByYearsOfEnrollment(int years){
+        studentRepository.deleteStudentByYearsOfEnrollment(years);
+        return "Deleted Successfully";
     }
 
     @Override
-    public String findDepartmentById(String id){
-        return studentRepository.findDepartmentById(id);
+public String findDepartmentById(String id) {
+    // Ensure the id is not null or empty
+    if (id == null || id.isEmpty()) {
+        throw new IllegalArgumentException("ID must not be null or empty");
     }
+
+    // Query the repository
+    String department = studentRepository.findDepartmentById(id);
+
+    // If the department is null, throw an exception or return a default value
+    if (department == null) {
+        throw new RuntimeException("Department not found for ID: " + id);
+    }
+
+    return department;
+}
+
+    
 }
 
    

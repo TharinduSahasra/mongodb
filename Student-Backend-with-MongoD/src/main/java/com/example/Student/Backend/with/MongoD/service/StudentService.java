@@ -10,5 +10,7 @@ public interface StudentService {
     Student getStudentById(String id); // Changed `string` to `String`
     Student updateStudent(Student student, String id); // Changed `string` to `String`
     void deleteStudent(String id); // Changed `string` to `String`
-    List<Student> getStudentsByYearOfEnrollment(int yearOfEnrollment);
-    String findDepartmentById(String id);}
+    List<Student> getStudentByYearsOfExperience(int yearsOfEnrollment);
+    String findDepartmentById(String id);
+    String deleteStudentByYearsOfEnrollment(int yearsOfEnrollment);
+}

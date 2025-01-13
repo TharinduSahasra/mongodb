@@ -3,7 +3,7 @@ package com.example.Student.Backend.with.MongoD;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.example.Student.Backend.with.MongoD")
 public class StudentBackendWithMongoDApplication {
 
 	public static void main(String[] args) {

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,11 +27,12 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/addStudent")
     public ResponseEntity<Student> addStudent(@RequestBody Student student){
         return new ResponseEntity<Student>(studentService.addStudent(student), HttpStatus.CREATED);
     }
-
+      @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("getAllStudents")
     public List<Student> getAllStudents(){
         return studentService.getAllStudents();
@@ -40,13 +42,13 @@ public class StudentController {
     public ResponseEntity<Student> getStudentById(@PathVariable("id") String id){
         return new ResponseEntity<Student>(studentService.getStudentById(id), HttpStatus.OK);
     }
-
+@PreAuthorize("hasRole('ADMIN')")
     @PutMapping("updateStudent/{id}")
     public ResponseEntity<Student> updateStudent(@PathVariable("id") String id, @RequestBody Student student){
         return new ResponseEntity<Student>(studentService.updateStudent(student,id),HttpStatus.OK);
     }
 
- 
+ @PreAuthorize ("hasRole('ADMIN')")
     @DeleteMapping("deleteStudent/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable("id") String id){
         studentService.deleteStudent(id);
@@ -57,6 +59,7 @@ public class StudentController {
     public List<Student> getStudentByYearsOfExperience(@PathVariable("yearsOfEnrollment") int yearsOfEnrollment){
         return studentService.getStudentByYearsOfExperience(yearsOfEnrollment);
     }
+    @PreAuthorize   ("hasRole('ADMIN')")
     @GetMapping("getDepartmentById/{id}")
     public String getDepartmentByStudentId(@PathVariable String id) {
         return studentService.findDepartmentById(id);
